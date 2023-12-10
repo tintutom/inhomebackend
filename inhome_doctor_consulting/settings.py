@@ -1,17 +1,17 @@
 from pathlib import Path
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
-load_dotenv()
+# load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = "django-insecure-vpd6tr(39#1b)9lm#!+#^0cp+p5e5w%^hz9ir6+!6!a88i4y3q"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -74,24 +74,43 @@ CHANNEL_LAYERS = {
 }
 
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         'NAME': os.getenv("DB_NAME"),
+#         'USER': os.getenv("DB_USER"),
+#         'PASSWORD': os.getenv("DB_PASSWORD"),
+#         'HOST': os.getenv("DB_HOST"),
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': '5432',
+        'NAME': "inhome",
+        'USER': "mysuperuser",
+        'PASSWORD': "mysuperuser123",
+        'HOST': "inhome.c5vfs2kt9b6p.eu-north-1.rds.amazonaws.com",
+        'PORT': 5432,
     }
 }
 
-
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "tintutom2000@gmail.com"
+EMAIL_HOST_PASSWORD = "azhglvowvrkukuzn"
 EMAIL_USE_TLS = True
+
+
+
+# EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+# EMAIL_HOST = os.getenv("EMAIL_HOST")
+# EMAIL_PORT = os.getenv("EMAIL_PORT")
+# EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+# EMAIL_USE_TLS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -145,11 +164,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_SIGNATURE_NAME = os.getenv("AWS_S3_SIGNATURE_NAME")
-AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
+AWS_ACCESS_KEY_ID = 'AKIA54B5MJN2IZMYQ5TB'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'inhome'
+AWS_S3_SIGNATURE_NAME = 's3v4'
+AWS_S3_REGION_NAME = 'us-east-1'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
