@@ -4,8 +4,9 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from chat.routing import websocket_urlpatterns
 from django.conf import settings
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inhome_doctor_consulting.settings')
-settings.configure()
+if not settings.configured:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inhome_doctor_consulting.settings')
+    settings.configure()
 
 application = ProtocolTypeRouter(
     {
