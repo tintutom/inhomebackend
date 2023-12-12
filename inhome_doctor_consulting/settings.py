@@ -142,7 +142,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
 
-    "https://master.dabgsh2k3fwjr.amplifyapp.com/",
+    "https://master.dabgsh2k3fwjr.amplifyapp.com",
 ]
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
