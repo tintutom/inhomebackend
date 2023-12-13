@@ -1,14 +1,21 @@
 import os
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inhome_doctor_consulting.settings')
+django.setup()
+
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-from chat.routing import websocket_urlpatterns
+from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inhome_doctor_consulting.settings')
+django_asgi_application = get_asgi_application
+
+from chat import routing as routingchat
+
 
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        'websocket': URLRouter(websocket_urlpatterns),
+        'websocket': URLRouter(routingchat.websocket_urlpatterns),
 
     }
 )
