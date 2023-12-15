@@ -16,7 +16,9 @@ class Specialization_serializer(serializers.ModelSerializer):
 class DoctorAdditionalDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DoctorAdditionalDetails
-        fields = ['experience', 'education', 'current_working_hospital', 'fee', 'gender']
+        fields = '__all__'
+
+        # fields = ['experience', 'education', 'current_working_hospital', 'fee', 'gender']
 
 
 class Doctorinfo_Serializer(serializers.ModelSerializer):

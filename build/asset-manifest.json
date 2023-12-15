@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.16a561bb.css",
+    "main.js": "/static/js/main.8b09d015.js",
+    "static/js/787.9e9f4ffd.chunk.js": "/static/js/787.9e9f4ffd.chunk.js",
+    "static/media/signup.gif": "/static/media/signup.0f7b8650a3ab8f3ee75b.gif",
+    "static/media/faq-img.png": "/static/media/faq-img.2d9e7505f88c40751dcc.png",
+    "static/media/about.png": "/static/media/about.048bbff9dcea43a0584e.png",
+    "static/media/feature-img.png": "/static/media/feature-img.003bb1f46f8be3909664.png",
+    "static/media/hero-img01.png": "/static/media/hero-img01.956f683d0d4e75c562ab.png",
+    "static/media/doctor-img01.png": "/static/media/doctor-img01.65b7c01ac80d486294fa.png",
+    "static/media/doctor-img02.png": "/static/media/doctor-img02.e9a0fc7e26539c280a33.png",
+    "static/media/hero-img03.png": "/static/media/hero-img03.2da63e104e6fddfa4318.png",
+    "static/media/hero-img02.png": "/static/media/hero-img02.4b0405546d58b145b7f1.png",
+    "static/media/about-card.png": "/static/media/about-card.734ec7b51b0e14bfb2a6.png",
+    "static/media/icon02.png": "/static/media/icon02.6b1b5c9eaa53f90aa72a.png",
+    "index.html": "/index.html",
+    "main.16a561bb.css.map": "/static/css/main.16a561bb.css.map",
+    "main.8b09d015.js.map": "/static/js/main.8b09d015.js.map",
+    "787.9e9f4ffd.chunk.js.map": "/static/js/787.9e9f4ffd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16a561bb.css",
+    "static/js/main.8b09d015.js"
+  ]
+}

@@ -229,7 +229,8 @@ def Counts(request):
     departments = Specialization.objects.all().count()
     users = User.objects.all().count()
     doctors = Doctorinfo.objects.all().count()
-    return Response({'users':users,'departments':departments,'doctors':doctors})
+    upappoinments = Payments.objects.all().count()
+    return Response({'users':users,'departments':departments,'doctors':doctors,'upappoinments':upappoinments })
 
 
 

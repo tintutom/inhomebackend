@@ -74,7 +74,7 @@ class Sign_up(APIView):
 
         hospital.save()
         send_mail('New Hospital Account Created',
-                'Hello Admin, a new hospital is registered. The hospital name is {}. http://localhost:3000/cadmin/hospital'.format(name),
+                'Hello Admin, a new hospital is registered. The hospital name is {}. https://localhost:3000/cadmin/hospital'.format(name),
                 'settings.EMAIL_HOST_USER',
                 ['tintutom2000@gmail.com'],
                 fail_silently=False
@@ -159,7 +159,42 @@ class DoctorInfoUpdateAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class DoctorInfoUpdateAPIView(APIView):
+#     def put(self, request, doctor_id):
+#         try:
+#             doctor = Doctorinfo.objects.get(id=doctor_id)
+#         except Doctorinfo.DoesNotExist:
+#             return Response({'error': 'Doctor not found'}, status=status.HTTP_404_NOT_FOUND)
 
+#         # Print statements for debugging
+#         print(f"Received data: {request.data}")
+#         print(f"Existing Doctorinfo: {doctor}")
+        
+#         # Update Doctorinfo fields
+#         doctor_serializer = Doctorinfo_Serializer(doctor, data=request.data, partial=True)
+#         if doctor_serializer.is_valid():
+#             doctor_serializer.save()
+
+#         # Print additional information
+#         print(f"Updated Doctorinfo: {doctor_serializer.data}")
+
+#         # Update or create DoctorAdditionalDetails
+#         additional_details_data = request.data.get('additional_details', {})
+#         additional_details_instance = doctor.additional_details if hasattr(doctor, 'additional_details') else None
+
+#         additional_details_serializer = DoctorAdditionalDetailsSerializer(
+#             additional_details_instance,
+#             data=additional_details_data,
+#             partial=True
+#         )
+#         if additional_details_serializer.is_valid():
+#             additional_details_serializer.save(doctor=doctor)
+
+#         # Print additional information
+#         print(f"Updated AdditionalDetails: {additional_details_serializer.data}")
+
+#         # Return the updated data
+#         return Response(doctor_serializer.data, status=status.HTTP_200_OK)
 
 class AddDoctorSlot(APIView):
     def post(self, request, doctor_id):
