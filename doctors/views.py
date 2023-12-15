@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from doctors.serializers import DoctorAdditionalDetailsSerializer,DoctorSlotSerializer
+from doctors.serializers import DoctorAdditionalSerializer,DoctorSlotSerializer
 from .authentication import check_user
 from rest_framework.decorators import api_view
 import jwt
@@ -130,7 +130,7 @@ class DoctorAdditionalDetailsAPIView(APIView):
         except Doctorinfo.DoesNotExist:
             return Response({'success': False, 'message': 'Doctor not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = DoctorAdditionalDetailsSerializer(data=request.data)
+        serializer = DoctorAdditionalSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save(doctor=doctor_instance)
@@ -149,6 +149,7 @@ class DoctorInfoUpdateAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, doctor_id):
+        print("Request data:", request.data)
         try:
             doctor = Doctorinfo.objects.get(id=doctor_id)
         except Doctorinfo.DoesNotExist:
@@ -156,46 +157,15 @@ class DoctorInfoUpdateAPIView(APIView):
 
         serializer = Doctorinfo_Serializer(doctor, data=request.data, partial=True)
         if serializer.is_valid():
+            additional_details_data = request.data.get('additional_details', {})
+            print("Additional Details Data:", additional_details_data)
+
             serializer.save()
+            print("Doctorinfo instance updated successfully.")
             return Response(serializer.data, status=status.HTTP_200_OK)
+        print("Serializer errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-# class DoctorInfoUpdateAPIView(APIView):
-#     def put(self, request, doctor_id):
-#         try:
-#             doctor = Doctorinfo.objects.get(id=doctor_id)
-#         except Doctorinfo.DoesNotExist:
-#             return Response({'error': 'Doctor not found'}, status=status.HTTP_404_NOT_FOUND)
-
-#         # Print statements for debugging
-#         print(f"Received data: {request.data}")
-#         print(f"Existing Doctorinfo: {doctor}")
-        
-#         # Update Doctorinfo fields
-#         doctor_serializer = Doctorinfo_Serializer(doctor, data=request.data, partial=True)
-#         if doctor_serializer.is_valid():
-#             doctor_serializer.save()
-
-#         # Print additional information
-#         print(f"Updated Doctorinfo: {doctor_serializer.data}")
-
-#         # Update or create DoctorAdditionalDetails
-#         additional_details_data = request.data.get('additional_details', {})
-#         additional_details_instance = doctor.additional_details if hasattr(doctor, 'additional_details') else None
-
-#         additional_details_serializer = DoctorAdditionalDetailsSerializer(
-#             additional_details_instance,
-#             data=additional_details_data,
-#             partial=True
-#         )
-#         if additional_details_serializer.is_valid():
-#             additional_details_serializer.save(doctor=doctor)
-
-#         # Print additional information
-#         print(f"Updated AdditionalDetails: {additional_details_serializer.data}")
-
-#         # Return the updated data
-#         return Response(doctor_serializer.data, status=status.HTTP_200_OK)
-
+     
 class AddDoctorSlot(APIView):
     def post(self, request, doctor_id):
         try:

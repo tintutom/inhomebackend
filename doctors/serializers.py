@@ -19,6 +19,12 @@ class DoctorAdditionalDetailsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
         # fields = ['experience', 'education', 'current_working_hospital', 'fee', 'gender']
+class DoctorAdditionalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorAdditionalDetails
+        # fields = '__all__'
+
+        fields = ['experience', 'education', 'current_working_hospital', 'fee', 'gender']
 
 
 class Doctorinfo_Serializer(serializers.ModelSerializer):
@@ -28,6 +34,23 @@ class Doctorinfo_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Doctorinfo
         exclude = ['password']
+        
+    def update(self, instance, validated_data):
+        additional_details_data = validated_data.pop('additional_details', {})
+        additional_details_instance = instance.additional_details
+
+        for key, value in additional_details_data.items():
+            setattr(additional_details_instance, key, value)
+
+        # Update Doctorinfo fields
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        # Save changes to both models
+        instance.save()
+        additional_details_instance.save()
+
+        return instance
 
 class DoctorSlotSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()

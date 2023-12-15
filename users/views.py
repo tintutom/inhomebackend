@@ -18,6 +18,7 @@ from datetime import datetime
 from django.utils import timezone
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
+from django.core.files.storage import default_storage
 
 
 
@@ -52,8 +53,12 @@ class Sign_up(APIView):
             email=email,
             phone=phone,
             password=password,
-            userimage=userimage, 
+            # userimage=userimage, 
         )
+        if userimage:
+            # Get the file name and save it to the specified folder
+            file_name = f'images/user_images/{userimage.name}'
+            user.userimage.name = default_storage.save(file_name, userimage)
         user.save()
 
         return Response({'status': 'Success'})
