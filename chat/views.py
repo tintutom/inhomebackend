@@ -20,11 +20,12 @@ class ExistingMessagesView(APIView):
         data = [
             {
                 'message': message.message,
-                'sender' : message.sender.name,
+                'sendername': message.sendername,
                 'sender_id': message.sender.id,
                 'reciever' : message.receiver.name,
                 'receiver_id': message.receiver.id,
-                'timestamp' : message.timestamp            
+                'timestamp' : message.timestamp,
+                           
             } 
             
             for message in messages

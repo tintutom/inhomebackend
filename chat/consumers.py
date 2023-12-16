@@ -41,22 +41,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         data = json.loads(text_data)
         message = data['message']
+        sendername = data.get('sendername', 'Anonymous')
 
-        await self.save_message(message)
+        await self.save_message(sendername, message)
 
         await self.channel_layer.group_send(
             f'chat_{self.appointment_id}',
             {
                 'type': 'chat.message',
-                'data': data,
+                'data': {
+                'message': message,
+                'sendername': sendername,
+            },
             }
         )
 
     async def chat_message(self, event):
         message = event['data']['message']
+        sendername = event['data']['sendername']
 
         await self.send(text_data=json.dumps({
             'message': message,
+            'sendername': sendername,
         }))
 
     @classmethod
@@ -74,19 +80,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
         except Payments.DoesNotExist:
             print("Failed to find the appointment")
 
-    async def save_message(self, message):
+    async def save_message(self,sendername, message):
         sender = await self.get_user_instance(self.appointment.user_id)
         receiver = await self.get_doctor_instance(self.appointment.doctor_id)
-
-        await self.save_message_to_db(sender, receiver, message)
+        sendername = sendername
+        await self.save_message_to_db(sender, receiver, sendername, message)
 
     @database_sync_to_async
-    def save_message_to_db(self, sender, receiver, message):
+    def save_message_to_db(self, sender, receiver, sendername, message):
         ChatMessage.objects.create(
             sender=sender,
             receiver=receiver,
             message=message,
-            appointment=self.appointment
+            appointment=self.appointment,
+            sendername=sendername
         )
 
     @database_sync_to_async
