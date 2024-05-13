@@ -21,16 +21,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
         
         # Fetch existing messages and send them to the connected client
         existing_messages = await self.get_existing_messages()
-        for message in existing_messages:
-            await self.send(text_data=json.dumps({
-                'message': message['message'],
-            }))
+        await self.send(text_data=json.dumps({
+            'type': 'existing_messages',
+            'data': existing_messages,
+        }))
 
     @database_sync_to_async
     def get_existing_messages(self):
         # Assuming you have a ChatMessage model with a 'message' field
         messages = ChatMessage.objects.filter(appointment=self.appointment)
-        return [{'message': message.message} for message in messages]
+        message_data = []
+        for message in messages:
+            message_data.append({
+                "message":message.message,
+                "sendername":message.sendername,
+                "timestamp":message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+            })
+        return message_data
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
